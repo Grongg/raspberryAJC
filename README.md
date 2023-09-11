@@ -8,9 +8,12 @@ Ce code C++ est destiné à être utilisé avec une Raspberry Pi 3 modèle B et 
 ## Configuration matérielle
 Avant d'utiliser ce code, assurez-vous d'avoir correctement câblé ( plug ) votre Raspberry Pi. Voici la configuration recommandée :
 
+- kernel : 64 bytes
 - Broche GPIO 12 : Utilisée comme entrée
 - Broche GPIO 16, 20, 21 : Utilisées comme sorties
 ![Config ](https://www.framboise314.fr/wp-content/uploads/2018/02/kit_composants_GPIO_01.png)
+- Programme en C++
+
 
 
 ## Utilisation
