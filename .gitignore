@@ -1,0 +1,7 @@
+*.swp
+mon_programme
+'Programme Capteur'
+Programme_Capteur
+.gitignore
+.vscode
+*~
