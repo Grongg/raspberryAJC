@@ -1,49 +1,63 @@
 #include <iostream>
-using namespace std;
 #include <wiringPi.h>
 #include <unistd.h>
 #include <chrono>
 #include <thread>
 
-int main(){
-	int i = 0;
-	int compteur = 0;
+#define PIR 12
+#define RED_LED 21
+#define YELLOW_LED 20
+#define GREEN_LED 16
+
+using namespace std;
+
+void capteur()
+{
+	int compteur;
+	
+	compteur = 0;
+	
 	wiringPiSetupGpio();
 
-	pinMode(16, OUTPUT);
-	pinMode(20, OUTPUT);
-	pinMode(21, OUTPUT);
-
-	digitalWrite(21, HIGH);
-	digitalWrite(20, HIGH);
-	digitalWrite(16, HIGH);
-
-	while(i < 70){
-
-		if(digitalRead(12)){
+	pinMode(PIR, INPUT);
+	pinMode(GREEN_LED, OUTPUT);
+	pinMode(YELLOW_LED, OUTPUT);
+	pinMode(RED_LED, OUTPUT);
+	
+	while(true)
+	{
+		if(digitalRead(PIR))
+		{
 			compteur = 0;
-			digitalWrite(21, LOW);
-			digitalWrite(20, LOW);
-			digitalWrite(16, HIGH);
+			digitalWrite(RED_LED, LOW);
+			digitalWrite(YELLOW_LED, LOW);
+			digitalWrite(GREEN_LED, HIGH);
 		}
-		else{
-			digitalWrite(16, LOW);
+		else
+		{
+			digitalWrite(GREEN_LED, LOW);
 
-			if(compteur >= 8){
-				digitalWrite(21, HIGH);
-				digitalWrite(20, LOW);
-			}else{
-				digitalWrite(20, HIGH);
+			if(compteur >= 8)
+			{
+				digitalWrite(RED_LED, HIGH);
+				digitalWrite(YELLOW_LED, LOW);
 			}
+			else
+				digitalWrite(YELLOW_LED, HIGH);
 			compteur++;
 
 		}
 		this_thread::sleep_for(chrono::milliseconds(200));
-		i++;
 	}
 	
 	digitalWrite(21, LOW);
 	digitalWrite(20, LOW);
 	digitalWrite(16, LOW);
+}
+
+int main()
+{
+	capteur();
+
 	return 0;
 }
